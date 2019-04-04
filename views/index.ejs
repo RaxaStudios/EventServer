@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test</title>
+    <link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="container">
+      <fieldset>
+        <form action="/" method="post">
+          <input name="city" type="text" class="ghost-input" placeholder="Enter a City" required>
+          <input type="submit" class="ghost-button" value="Get Weather">
+        </form>
+        <% if(weather !== null){ %>
+          <p><%= weather %></p>
+        <% } %>
+
+        <% if(error !== null){ %>
+          <p><%= error %></p>
+        <% } %>
+      </fieldset>
+    </div>
+    <p id="id">test p</p>
+
+<ul id="live-updates">live update<ul>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+var evt = {
+  init : function(){
+    var src = new EventSource("http://localhost:8081/api/events");
+    src.addEventListener("message", function(event){
+                                var data = JSON.parse(event.data);
+                                evt.addItem(`${data.update} : ${data.number}`);
+                                evt.addItem(data.number);
+                             }, false);
+                     },
+
+                     addItem : function(data) {
+                                     $(evt.constructItem(data)).hide().prependTo("#live-updates").fadeIn(1000);
+                     },
+
+                     constructItem : function(data) {
+                         return "<li>" + data + "</li>";
+                     }
+            };
+
+            $(document).ready(function(){
+                    evt.init();
+            });
+</script>
+
+  </body>
+</html>
