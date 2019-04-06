@@ -12,16 +12,46 @@ const server = new WebSocket.Server({ port: 8080 });
 const eventHandler = require('./eventHandler');
 const messageHandler = require('./messageHandler');
 
+/*var array = new Array();
+const Queue = require('better-queue');
+/* create and initialize queue and function fu
+function fu (json, cb) {
+  // take in json
+  // send to dataChannel
+  dataChannel.publish(json);
+  cb(null, json);
+}
+var q = new Queue(fu);
+q.push('{"update":"Initial push test", "number":"3"}', function(err, result){
+  console.log(err);
+  console.log(result);
+});
+q.on('drain', function(){
+  console.log('Drain complete');
+});
+setTimeout(function(){q.push('{"update":"Delayed push test", "number":"9"}', function(err, result){
+  console.log(err);
+  console.log(result);
+    });
+  }, 3000);
+
+setInterval(function(){
+  q.push(array.pop(), function(err, result){
+    console.log(`result in interval: ${result}`);
+    console.log(`array: ${array}`);
+  });
+}, 6000);*/
+
 exports.app = app;
 
 server.on('connection', socket => {
   socket.on('message', message => {
     console.log(`received message from client: ${message}`);
-  //  messageHandler.handleMessage(message);
-    //var json = JSON.stringify(message);
+    //messageHandler.handleMessage(message);
     var json = message;
     console.log(`json: ${json}`);
-    dataChannel.publish(json);
+    //dataChannel.publish(json);
+    messageHandler.array.push(json);
     server.clients.forEach(client => {
       client.send(`message sent was:${message}`);
     })
@@ -31,7 +61,6 @@ server.on('connection', socket => {
 
 app.engine('html', mustacheExpress());
 app.use(express.static('public'));
-//app.use(express.static('./static'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs')
@@ -108,7 +137,7 @@ ServerEvent.prototype.payload = function() {
 }
 
 app.listen(8081, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('Example app listening on port 8081!');
   console.log(`Hello text: ${eventHandler.hello()}`);
   console.log(`Making event: ${eventHandler.emitEvent()}`);
   eventHandler.emitYell("first", "second");
