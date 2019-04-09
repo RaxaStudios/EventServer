@@ -7,24 +7,12 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <div class="container">
-      <fieldset>
-        <form action="/" method="post">
-          <input name="city" type="text" class="ghost-input" placeholder="Enter a City" required>
-          <input type="submit" class="ghost-button" value="Get Weather">
-        </form>
-        <% if(weather !== null){ %>
-          <p><%= weather %></p>
-        <% } %>
-
-        <% if(error !== null){ %>
-          <p><%= error %></p>
-        <% } %>
-      </fieldset>
+    <div id="container">
+          <img id="sourcePNG" src="Untitled.png"/>
+        <div id="textContainer">
+            <p id="text">test message in div</p>
+        </div>
     </div>
-    <p id="id">test p</p>
-
-<ul id="live-updates">live update<ul>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
 var evt = {
@@ -32,17 +20,38 @@ var evt = {
     var src = new EventSource("http://localhost:8081/api/events");
     src.addEventListener("message", function(event){
                                 var data = JSON.parse(event.data);
-                                evt.addItem(`${data.update} : ${data.number}`);
-                                evt.addItem(data.number);
+                                evt.startAnim(`${data.update} : ${data.number}`);
                              }, false);
                      },
 
-                     addItem : function(data) {
-                                     $(evt.constructItem(data)).hide().prependTo("#live-updates").fadeIn(1000);
-                     },
+                     startAnim : function(data) {
+                       //start up gif background
+                       setTimeout(function(){
+                         var gif = document.getElementById("sourcePNG");
+                         gif.src = "Spoopathon2.gif";
+                         setTimeout(function(){
+                           gif.src = "spoopL.png";
+                         },2000);
+                         setTimeout(function(){
+                           gif.className = "fade";
+                         }, 8000);
+                         setTimeout(function(){
+                           gif.src = "Untitled.png";
+                         }, 8500);
+                         setTimeout(function(){
+                           gif.className = "";
+                         }, 11000);
+                       }, 1000);
 
-                     constructItem : function(data) {
-                         return "<li>" + data + "</li>";
+                       //start up the text animation after 5 seconds
+                       setTimeout(function(){
+                         var txt = document.getElementById("text");
+                         txt.innerHTML = data;
+                         txt.className = "show";
+                         setTimeout(function(){
+                           txt.className = txt.className.replace("show", "");
+                         }, 4000);
+                       }, 3000);
                      }
             };
 
@@ -50,6 +59,8 @@ var evt = {
                     evt.init();
             });
 </script>
+<style type="text/css">
 
+</style>
   </body>
 </html>
