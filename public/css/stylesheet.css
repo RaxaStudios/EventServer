@@ -1,74 +1,52 @@
-/*
-  Styles from this codepen:
-  https://codepen.io/official_naveen/pen/rgknI
-*/
+#sourcePNG.fade {
+    -webkit-animation: fadeout 0.5s;
+    animation: fadeout 0.5s;
+}
 
-body {
-  width: 800px;
-  margin: 0 auto;
-  font-family: 'Open Sans', sans-serif;
+#sourcePNG {
+  max-width: 100%;
+  //margin-left: -150px;
+  //margin-top: -100px;
 }
-.container {
-  width: 600px;
-  margin: 0 auto;
+
+@-webkit-keyframes fadeout {
+    from {bottom: 55px; opacity: 1;}
+    to {bottom: 55px; opacity: 0;}
 }
-fieldset {
-  display: block;
-  -webkit-margin-start: 0px;
-  -webkit-margin-end: 0px;
-  -webkit-padding-before: 0em;
-  -webkit-padding-start: 0em;
-  -webkit-padding-end: 0em;
-  -webkit-padding-after: 0em;
-  border: 0px;
-  border-image-source: initial;
-  border-image-slice: initial;
-  border-image-width: initial;
-  border-image-outset: initial;
-  border-image-repeat: initial;
-  min-width: -webkit-min-content;
-  padding: 30px;
+
+@keyframes fadeout {
+    from {bottom: 55px; opacity: 1;}
+    to {bottom: 55px; opacity: 0;}
 }
-.ghost-input, p {
-  display: block;
-  font-weight:300;
-  width: 100%;
-  font-size: 25px;
-  border:0px;
-  outline: none;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #4b545f;
-  background: #fff;
-  font-family: Open Sans,Verdana;
-  padding: 10px 15px;
-  margin: 30px 0px;
-  -webkit-transition: all 0.1s ease-in-out;
-  -moz-transition: all 0.1s ease-in-out;
-  -ms-transition: all 0.1s ease-in-out;
-  -o-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
+
+
+#textContainer {
+  visibility: hidden;
+  color: white;
+  font-size: 40px;
+  position: absolute;
+  top: 250px;
+  left: 185px;
+  width: 425px;
+  height: 130px;
 }
-.ghost-input:focus {
-  border-bottom:1px solid #ddd;
+
+#text {
+  text-align: center;
 }
-.ghost-button {
-  background-color: transparent;
-  border:2px solid #ddd;
-  padding:10px 30px;
-  width: 100%;
-  min-width: 350px;
-  -webkit-transition: all 0.1s ease-in-out;
-  -moz-transition: all 0.1s ease-in-out;
-  -ms-transition: all 0.1s ease-in-out;
-  -o-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
+
+
+#text.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+   animation: fadein 0.5s, fadeout 0.5s 9.5s;
 }
-.ghost-button:hover {
-  border:2px solid #515151;
-}
-p {
-  color: #E64A19;
+
+#container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //position: relative;
+  width: 801px;
+  height: 601px;
 }

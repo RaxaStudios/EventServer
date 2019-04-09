@@ -27,10 +27,10 @@ setTimeout(function(){q.push('{"update":"Delayed push test", "number":"9"}', fun
 
 setInterval(function(){
   q.push(array.pop(), function(err, result){
-    console.log(`result in interval: ${result}`);
-    console.log(`array: ${array}`);
+  //  console.log(`result in interval: ${result}`);
+  //  console.log(`array: ${array}`);
   });
-}, 6000);
+}, 12000);
 
 
 module.exports = {
