@@ -18,10 +18,8 @@ exports.app = app;
 server.on('connection', socket => {
   socket.on('message', message => {
     console.log(`received message from client: ${message}`);
-    //messageHandler.handleMessage(message);
     var json = message;
     console.log(`json: ${json}`);
-    //dataChannel.publish(json);
     messageHandler.array.push(json);
     server.clients.forEach(client => {
       client.send(`message sent was:${message}`);
@@ -43,27 +41,7 @@ app.get('/api/events', function(req, res){
 });
 
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + "/public/Spoopathon2.gif");
-  res.render('index', {weather: null, error: null});
-})
-
-app.post('/', function (req, res) {
-  let city = req.body.city;
-  let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
-
-  request(url, function (err, response, body) {
-    if(err){
-      res.render('index', {weather: null, error: 'Error, please try again'});
-    } else {
-      let weather = JSON.parse(body)
-      if(weather.main == undefined){
-        res.render('index', {weather: null, error: 'Error, please try again'});
-      } else {
-        let weatherText = `It's ${weather.main.temp} degrees in ${weather.name}!`;
-        res.render('index', {weather: weatherText, error: null});
-      }
-    }
-  });
+  res.render('index');
 });
 
 function initialiseSSE(req, res) {
