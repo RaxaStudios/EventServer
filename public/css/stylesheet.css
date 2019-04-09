@@ -25,10 +25,13 @@
   color: white;
   font-size: 40px;
   position: absolute;
-  top: 250px;
+  top: 275px;
   left: 185px;
   width: 425px;
   height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #text {
